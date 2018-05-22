@@ -3,6 +3,7 @@ package org.edx.mobile.util;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -94,5 +95,19 @@ public class TextUtils {
         keyValMap.put("privacy_policy", privacyPolicySpan);
 
         return ResourceUtil.getFormattedString(resources, licenseTextId, keyValMap);
+    }
+
+    /**
+     * Returns displayable styled text from the provided HTML string.
+     *
+     * @param html The source string having HTML content.
+     * @return Formatted HTML.
+     */
+    public static Spanned formatHtml(String html) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(html);
+        }
     }
 }
